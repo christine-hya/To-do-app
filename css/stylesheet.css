@@ -1,0 +1,61 @@
+ul {
+    list-style-type: none;
+    margin: auto;
+    padding: 0%;
+   }
+
+i {
+       color:black;
+       font: bold;
+       padding: 2%;
+    }
+
+.heading{
+    padding-bottom: 5px;
+
+}
+.app-area{
+    background-color: #A6D8D4;
+    width: 450px;
+    height: 600px;
+    padding: 5%;
+    margin: auto;
+    margin-top: 20px;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+
+}
+
+.lineThrough {
+    text-decoration: line-through;
+}
+
+.add-to-do {
+    
+    margin-top: 330px;
+   
+}
+
+.input-style{
+    width: 220px;
+}
+
+.order-abc{
+    position: relative; 
+    left:165px;
+    top: -40px;
+    
+}
+
+
+.button-style{
+    background-color: #A6D8D4;
+    border: #A6D8D4;
+    border-radius: 50%;     
+}
+
+button:hover {
+    background-color: #7B5E7B;
+    transform: scale(1.4);
+  }
+
