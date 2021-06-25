@@ -10,43 +10,43 @@ i {
        padding: 2%;
     }
 
+
 .heading{
     padding-bottom: 5px;
-
+    padding-top: 10px;
+    text-align: center;
 }
 .app-area{
     background-color: #A6D8D4;
     width: 450px;
-    height: 600px;
-    padding: 5%;
+    height: 650px;
+    padding: 3%;
     margin: auto;
     margin-top: 20px;
     font-family: 'Lato', sans-serif;
     text-align: center;
+    display: block;
 
 }
 
-.lineThrough {
+.complete {
     text-decoration: line-through;
 }
 
 .add-to-do {
-    
-    margin-top: 330px;
+    position: fixed;
+    margin-top: 300px;
+    display: block;
    
 }
 
 .input-style{
-    width: 220px;
+    width: 250px;
 }
 
-.order-abc{
-    position: relative; 
-    left:165px;
-    top: -40px;
-    
+.date-style{
+    width: 150px;
 }
-
 
 .button-style{
     background-color: #A6D8D4;
@@ -57,5 +57,8 @@ i {
 button:hover {
     background-color: #7B5E7B;
     transform: scale(1.4);
+  }
+.custom-checkbox {
+    filter: grayscale(100%)
   }
 
