@@ -10,6 +10,7 @@ class ToDoClass {
 
         this.loadTasks();
         this.addEventListeners();
+        //this.updateNewTask();
     }
 
     addEventListeners() {
@@ -39,22 +40,24 @@ class ToDoClass {
             </div>
     
             <div class="col-8">
-                <p class="${task.isComplete ? 'complete' : ''}"> ${task.task}</p>
+                <p id="taskDisplay" class="${task.isComplete ? 'complete' : ''} replace-with-edit"> ${task.task}</p>
+                <input type="text" placeholder="${task.task}" id="editTaskField" class="hide">
             </div>
     
-            <div class="col-1" onClick="toDo.editTask()">
-            <a class="edit" href="/"><i class="far fa-edit"></i> </a>
+            <div class="col-1">
+            <button id="edit-button" class="button-style" onClick="toDo.editTask()";><i class="far fa-edit"></i> </button>
         </div>
            
     
             <div class="col-1">
-                <a class="" href="/" onClick="toDo.deleteTask(event, ${index})">
+                <button class="button-style" onClick="toDo.deleteTask(event, ${index})">
                 <i id="deleteTask" data-id="${index}" class="far fa-trash-alt"></i>
-                </a>
+                </button>
             </div>
     </li> `
 
     }
+
     toggleTaskStatus(index) {
         this.tasks[index].isComplete = !this.tasks[index].isComplete;
         this.loadTasks();
@@ -71,6 +74,10 @@ class ToDoClass {
         this.addTask(target.value);
         target.value = ""
     }
+
+    //edit item
+
+   
 
     addTask(task) {
         let newTask = {
@@ -92,17 +99,31 @@ class ToDoClass {
     //clearTasks() {
     //localStorage.clear();
     //}
-
-   //edit item
     editTask() {
-        if (e.target.classList.contains("edit")) {
-            document.getElementById("addTask").value =
-                e.target.parentNode.childNodes[0].data;
-            submit.value = "EDIT";
-            editItem = e;
-        }
+        
+            document.getElementById("editTaskField").style.display = "block"; 
+            document.getElementById("taskDisplay").style.display = "none";
+            this.updateNewTask();
+            
+            
+        } 
+        
+        updateNewTask() {
+           let newValue = document.getElementById("editTaskField").value;
+            document.getElementById("editTaskField").addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {                   
+                    toDo.tasks.push(newValue);
+                    toDo.loadTasks();
+                }
+
+                })
+
+            }
+        
     }
-}
+
+
+
 
 let toDo;
 window.addEventListener("load", function () {

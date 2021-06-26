@@ -61,4 +61,10 @@ button:hover {
 .custom-checkbox {
     filter: grayscale(100%)
   }
+.hide{
+    display: none;
+}
 
+.replace-with-edit {
+    display: block;
+}
