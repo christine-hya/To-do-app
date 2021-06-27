@@ -1,70 +1,186 @@
+body {
+    text-align: center;
+    margin: auto;
+}
+
+.header {
+    position: relative;
+    width: 450px;
+    color: white;
+    background-color: #218380;
+    padding: 2%;
+    margin: 0 auto;
+    margin-top: 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-sizing: border-box;
+}
+
+.app-area {
+    background-color:floralwhite;
+    color:rgb(42, 43, 43);
+    position: relative;  
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 450px;
+    height: 510px;
+    margin: 0 auto;
+    font-family: 'Lato', sans-serif;
+    text-align: center;   
+    box-sizing: border-box;
+    border: none;
+    
+}
+
+.todo-list {
+    margin: 0% auto;
+    padding: 5%;
+    padding-top: 5%;
+    display: block;
+    box-sizing: border-box;   
+}
+
+.add-to-do {
+    position: absolute;
+    top: 60%;
+    left: 6%;
+    margin: 0 auto;   
+    background-color: #8F2D56;
+    border-radius: 5px;
+    padding: 7%;
+    box-sizing: border-box;
+    border-radius: 15px;
+}
+
 ul {
     list-style-type: none;
     margin: auto;
     padding: 0%;
+    font: bolder;
    }
 
 i {
-       color:black;
-       font: bold;
-       padding: 2%;
+       color: rgb(42, 43, 43);
+       font: bold;       
     }
-
-
-.heading{
-    padding-bottom: 5px;
-    padding-top: 10px;
-    text-align: center;
-}
-.app-area{
-    background-color: #A6D8D4;
-    width: 450px;
-    height: 650px;
-    padding: 3%;
-    margin: auto;
-    margin-top: 20px;
-    font-family: 'Lato', sans-serif;
-    text-align: center;
-    display: block;
-
-}
 
 .complete {
     text-decoration: line-through;
 }
 
-.add-to-do {
-    position: fixed;
-    margin-top: 300px;
-    display: block;
-   
+.custom-checkbox {
+    filter: grayscale(100%)
 }
 
 .input-style{
-    width: 250px;
+    width: 220px;
 }
 
 .date-style{
     width: 150px;
+    color: grey;
+    
 }
 
-.button-style{
-    background-color: #A6D8D4;
-    border: #A6D8D4;
-    border-radius: 50%;     
+.button-plus {
+    background-color: #218380;
+    border-radius: 50%;
+    border: none;
+    width: 40px;
+    height: 40px;
+
+}
+
+.white-plus {
+    color: white;
+}
+
+.white-plus:hover {
+    color: black;
+}
+
+.button-plus:hover {
+    background-color: #FBB13C;   
+}
+
+.button-style-list{
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+}
+
+.button-style-list:hover{
+    background-color: #218380;
+}
+
+.button-abc {
+    background-color: #FBB13C;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.button-abc:hover {
+    background-color: #8F2D56;
 }
 
 button:hover {
-    background-color: #7B5E7B;
     transform: scale(1.4);
   }
-.custom-checkbox {
-    filter: grayscale(100%)
-  }
-.hide{
+
+.hide {
     display: none;
 }
 
 .replace-with-edit {
     display: block;
 }
+
+
+/* smart phones */
+
+@media screen and (max-width: 576px) {
+
+    .header {
+        width: 100vw;
+        height: 250px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        margin: 0%;
+        padding-top: 20%;
+        padding-bottom: 10%;
+    }
+
+    .app-area {
+            width: 100vw;   
+            height: 419px;
+            background-color: white;
+         
+    }
+
+    .add-to-do {
+        left: 0%;
+        top: 90%;
+      
+    }
+}
+
+
+@media screen and (max-width: 1024px) {
+
+    .header {
+        width: 700px;
+        padding-top: 5%;
+        padding-bottom: 5%;
+    }
+
+    .app-area {
+            width: 700px;
+            height: 814px;
+        } 
+    .add-to-do {
+        left: 20%;
+    } 
+   
+} 

@@ -31,26 +31,27 @@ class ToDoClass {
 
     generateTaskHtml(task, index, date) {
         return ` <li>
-        <div class="row py-1 mx-auto">
+        <div class="row py-1 px-2 mx-auto">
     
-            <div class="col-2">
+            <div class="col-1">
                 <input id="toggleTaskStatus" type="checkbox" onchange="toDo.toggleTaskStatus(${index})" name="completed" class="custom-checkbox" 
                  value="" ${task.isComplete ? 'checked' : ''}>
         
             </div>
     
             <div class="col-8">
-                <p id="taskDisplay" class="${task.isComplete ? 'complete' : ''} replace-with-edit"> ${task.task} ${date.date}</p>
+                <p id="taskDisplay" class="${task.isComplete ? 'complete' : ''} replace-with-edit mx-0 todo-style">${task.task} ${date.date}</p>
                 <input type="text" placeholder="${task.task}" id="editTaskField" class="hide">
             </div>
     
-            <div class="col-1">
-            <button id="edit-button" class="button-style" onClick="toDo.editTask()";><i class="far fa-edit"></i> </button>
+            <div class="col-1 ps-0">
+            <button id="edit-button" class="button-style-list" onClick="toDo.editTask()";><i class="far fa-edit"></i> </button>
+
         </div>
            
     
-            <div class="col-1">
-                <button class="button-style" onClick="toDo.deleteTask(event, ${index})">
+            <div class="col-2 ps-0">
+                <button class="button-style-list" onClick="toDo.deleteTask(event, ${index})">
                 <i id="deleteTask" data-id="${index}" class="far fa-trash-alt"></i>
                 </button>
             </div>
@@ -90,9 +91,11 @@ class ToDoClass {
         if (task === '') {
             addWarning.classList.add('border');
             addWarning.classList.add('border-danger');
+            addWarning.classList.add('border-4');
         } else {
             addWarning.classList.remove('border');
             addWarning.classList.remove('border-danger');
+            addWarning.classList.remove('border-4');
             this.tasks.push(newTask);
             this.loadTasks();
         }

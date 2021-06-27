@@ -1,0 +1,43 @@
+editTask() {
+        if (e.target.classList.contains("edit")) {
+            document.getElementById("addTask").value =
+                e.target.parentNode.childNodes[0].data;
+            submit.value = "EDIT";
+            editItem = e;
+        }
+    }
+
+
+let listItem = this.parentNode;
+        let editInput = listItem.querySelector("input[type=text]");
+        let output = document.getElementById("taskDisplay");
+        //let editButton = document.getElementById("edit-button");
+        let containsClass = listItem.classList.contains("editMode");
+
+       // output.contentEditable = "true";
+
+        if (containsClass) {
+            output.innerText = editInput.value;
+        }
+        else {
+            editInput.value = output.innerText;
+        }
+
+        listItem.classList.toggle("editMode");
+
+        //let makeEditable = document.getElementById("taskDisplay"); 
+    
+        //makeEditable.contentEditable = "true";
+        //makeEditable.classList.add('border');
+        //makeEditable.classList.add('border-dark');
+
+ document.createElement("input"); //add an input field
+        editInput.type = "text"; //add type text
+        let containsClass = listItem.classList.contains("editMode");
+        if (containsClass) {
+            output.innerText = editInput.value;
+        }
+        else {
+            editInput.value = output.innerText;
+        }
+        listItem.classList.toggle("editMode");
