@@ -1,3 +1,4 @@
+
 class ToDoClass {
     constructor() {
         this.tasks = JSON.parse(localStorage.getItem('TASKS'));
@@ -24,7 +25,7 @@ class ToDoClass {
 
     loadTasks() {
         let tasksHtml = this.tasks.reduce((html, task, index) => html +=
-        this.generateTaskHtml(task, index, date), '');
+            this.generateTaskHtml(task, index, date), '');
         document.getElementById('list').innerHTML = tasksHtml;
         localStorage.setItem('TASKS', JSON.stringify(this.tasks));
     }
@@ -40,12 +41,12 @@ class ToDoClass {
             </div>
     
             <div class="col-8">
-                <p id="taskDisplay" class="${task.isComplete ? 'complete' : ''} replace-with-edit mx-0 todo-style">${task.task} ${date.date}</p>
+                <input type="text" id="taskDisplay" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task}" disabled>
                 <input type="text" placeholder="${task.task}" id="editTaskField" class="hide">
             </div>
     
             <div class="col-1 ps-0">
-            <button id="edit-button" class="button-style-list" onClick="toDo.editTask()";><i class="far fa-edit"></i> </button>
+            <button id="edit-button" data-id="${index}" class="button-style-list" onClick="toDo.editTask()";><i class="far fa-edit"></i> </button>
 
         </div>
            
@@ -106,36 +107,25 @@ class ToDoClass {
     //}
 
     //edit task item
+  
     editTask() {
-
-        document.getElementById("editTaskField").style.display = "block";
-        document.getElementById("taskDisplay").style.display = "none";
-        this.updateNewTask();
-
+        
+        let taskInput = document.getElementById("taskDisplay");
+        let name = taskInput.value;
+     
+        if(taskInput.disabled == true){
+            taskInput.disabled = !taskInput.disabled;
+         }
+         else{
+             taskInput.disabled = !taskInput.disabled;
+             let indexof = this.tasks.indexOf(name);
+             this.tasks[indexof] = taskInput.value;
+             
+             this.loadTasks();
+         }
+    
     }
-
-    updateNewTask() {
-        let newValue = document.getElementById("editTaskField").value;
-        document.getElementById("editTaskField").addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                toDo.tasks.push(newValue);
-                toDo.loadTasks();
-            }
-        })
-    }
-
-    //sort alphabetically
-    sortAlphabetically() {
-        let sortedTodos = this.tasks.map(el => this.tasks[el.index]);
-        this.loadTasks(sortedTodos);
-        return this.tasks
-            .sort((a, b) => {
-                if (a.value > b.value) { return 1; }
-                if (a.value < b.value) { return -1 }
-                return 0;
-            })
-
-    }
+   
 
 }
 
