@@ -41,7 +41,7 @@ class ToDoClass {
             </div>
     
             <div class="col-8">
-                <input type="text" id="taskDisplay" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task}" disabled>
+                <input type="text" id="taskDisplay" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task} ${date.date}" disabled>
                 <input type="text" placeholder="${task.task}" id="editTaskField" class="hide">
             </div>
     
@@ -107,25 +107,37 @@ class ToDoClass {
     //}
 
     //edit task item
-  
+
     editTask() {
-        
+
         let taskInput = document.getElementById("taskDisplay");
         let name = taskInput.value;
-     
-        if(taskInput.disabled == true){
+
+        if (taskInput.disabled == true) {
             taskInput.disabled = !taskInput.disabled;
-         }
-         else{
-             taskInput.disabled = !taskInput.disabled;
-             let indexof = this.tasks.indexOf(name);
-             this.tasks[indexof] = taskInput.value;
-             
-             this.loadTasks();
-         }
-    
+        }
+        else {
+            taskInput.disabled = !taskInput.disabled;
+            let indexof = this.tasks.indexOf(name);
+            this.tasks[indexof] = taskInput.value;
+
+            this.loadTasks();
+        }
+
     }
-   
+
+    //sort alphabetically
+    sortAlphabetically() {
+        let sortedTodos = this.tasks.map(el => this.tasks[el.index]);
+        this.loadTasks(sortedTodos);
+        return this.tasks
+            .sort((a, b) => {
+                if (a.value > b.value) { return 1; }
+                if (a.value < b.value) { return -1 }
+                return 0;
+            })
+
+    }
 
 }
 

@@ -63,7 +63,10 @@ i {
        color: rgb(42, 43, 43);
        font: bold;       
     }
-
+.todo-style {
+    border: none;
+    background-color: floralwhite;
+}
 .complete {
     text-decoration: line-through;
 }
