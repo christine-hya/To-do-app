@@ -82,7 +82,7 @@ class ToDoClass {
 
     addTask(task) {
         let dueDate = document.getElementById("due-date").value;
-        let dateString = dueDate.toString()
+        let dateString = dueDate.toString();
         let newTask = {
             task,
             isComplete: false,
