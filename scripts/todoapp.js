@@ -1,11 +1,11 @@
 
+
 class ToDoClass {
     constructor() {
         this.tasks = JSON.parse(localStorage.getItem('TASKS'));
         if (!this.tasks) {
-            this.tasks = [
-                { task: 'Practise violin', isComplete: false, date: date },
-                { task: 'Feed the cat', isComplete: true, date: date },
+            this.tasks = [{
+                 task: task, isComplete: false, date: date }
             ];
         }
 
@@ -13,6 +13,9 @@ class ToDoClass {
         this.addEventListeners();
         //this.updateNewTask();
     }
+//constructor end
+
+
 
     addEventListeners() {
         document.getElementById('addTask').addEventListener('keyup', event => {
@@ -21,7 +24,18 @@ class ToDoClass {
                 event.target.value = '';
             }
         });
-    }
+
+        document.querySelector('#list').addEventListener('click', (e) => {
+            if(e.target.classList.contains('edit'))
+             {toDo.editTask();
+            }
+         })
+            };
+    
+// bindClicks () {
+//     document.querySelector('.edit').onclick = this.editTask();
+    
+// }
 
     loadTasks() {
         let tasksHtml = this.tasks.reduce((html, task, index) => html +=
@@ -30,7 +44,7 @@ class ToDoClass {
         localStorage.setItem('TASKS', JSON.stringify(this.tasks));
     }
 
-    generateTaskHtml(task, index, date) {
+    generateTaskHtml(task, index, date, id) {
         return ` <li>
         <div class="row py-1 px-2 mx-auto">
     
@@ -41,12 +55,12 @@ class ToDoClass {
             </div>
     
             <div class="col-8">
-                <input type="text" id="taskDisplay" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task} ${date.date}" disabled>
-                <input type="text" placeholder="${task.task}" id="editTaskField" class="hide">
+                <input type="text" data-id="${id}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task} ${date.date}" disabled>
+                
             </div>
     
             <div class="col-1 ps-0">
-            <button id="edit-button" data-id="${index}" class="button-style-list" onClick="toDo.editTask()";><i class="far fa-edit"></i> </button>
+            <button class="button-style-list edit";><i class="far fa-edit"></i> </button>
 
         </div>
            
@@ -77,7 +91,7 @@ class ToDoClass {
     addTaskClick() {
         let target = document.getElementById('addTask');
         this.addTask(target.value);
-        target.value = ""
+        target.value = "";
     }
 
     addTask(task) {
@@ -108,23 +122,34 @@ class ToDoClass {
 
     //edit task item
 
+
+
     editTask() {
+       //this.tasks[tasknum];
+      
+        let taskInput = document.querySelector('.todo-style');
+        let name = taskInput.value;       
 
-        let taskInput = document.getElementById("taskDisplay");
-        let name = taskInput.value;
-
-        if (taskInput.disabled == true) {
-            taskInput.disabled = !taskInput.disabled;
+        if (taskInput.disabled == true)
+         { 
+             taskInput.disabled = !taskInput.disabled;
+             
         }
-        else {
-            taskInput.disabled = !taskInput.disabled;
+
+        else {  taskInput.disabled = !taskInput.disabled;
             let indexof = this.tasks.indexOf(name);
-            this.tasks[indexof] = taskInput.value;
-
-            this.loadTasks();
+            this.tasks[indexof] = taskInput.value;           
         }
 
-    }
+        taskInput.classList.add('border');
+        taskInput.classList.add('border-4');
+
+        taskInput.addEventListener('keyup', event => {
+            if (event.key === 'Enter') {
+                this.loadTasks();}    
+            })                 
+    
+}
 
     //sort alphabetically
     sortAlphabetically() {
@@ -140,6 +165,7 @@ class ToDoClass {
     }
 
 }
+//class end
 
 let toDo;
 window.addEventListener("load", function () {
