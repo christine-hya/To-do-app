@@ -4,17 +4,18 @@ class ToDoClass {
     constructor() {
         this.tasks = JSON.parse(localStorage.getItem('TASKS'));
         if (!this.tasks) {
-            this.tasks = [{
-                 task: task, isComplete: false, date: date }
-            ];
+            this.tasks = [
+                { id: 0, task: task, isComplete: false, date: date },
+
+            ], id = 0;
+            ;
+
         }
 
         this.loadTasks();
         this.addEventListeners();
-        //this.updateNewTask();
     }
-//constructor end
-
+    //constructor end
 
 
     addEventListeners() {
@@ -24,27 +25,18 @@ class ToDoClass {
                 event.target.value = '';
             }
         });
+    };
 
-        document.querySelector('#list').addEventListener('click', (e) => {
-            if(e.target.classList.contains('edit'))
-             {toDo.editTask();
-            }
-         })
-            };
-    
-// bindClicks () {
-//     document.querySelector('.edit').onclick = this.editTask();
-    
-// }
 
     loadTasks() {
-        let tasksHtml = this.tasks.reduce((html, task, index) => html +=
+
+        let tasksHtml = this.tasks.reduce((html, task, index, date) => html +=
             this.generateTaskHtml(task, index, date), '');
         document.getElementById('list').innerHTML = tasksHtml;
         localStorage.setItem('TASKS', JSON.stringify(this.tasks));
     }
 
-    generateTaskHtml(task, index, date, id) {
+    generateTaskHtml(task, index, id) {
         return ` <li>
         <div class="row py-1 px-2 mx-auto">
     
@@ -54,15 +46,10 @@ class ToDoClass {
         
             </div>
     
-            <div class="col-8">
-                <input type="text" data-id="${id}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task} ${date.date}" disabled>
+            <div class="col-9 input-container" onClick="toDo.editTask(event)">
+              <input type="text" data-id="${id}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task} ${date.date}" disabled>
                 
             </div>
-    
-            <div class="col-1 ps-0">
-            <button class="button-style-list edit";><i class="far fa-edit"></i> </button>
-
-        </div>
            
     
             <div class="col-2 ps-0">
@@ -96,12 +83,14 @@ class ToDoClass {
 
     addTask(task) {
         let dueDate = document.getElementById("due-date").value;
-        let dateString = dueDate.toString();
+        let dateString = JSON.stringify(dueDate);
         let newTask = {
+            id: this.id++,
             task,
             isComplete: false,
             date: dateString
         };
+
         let addWarning = document.getElementById('addTask');
         if (task === '') {
             addWarning.classList.add('border');
@@ -113,6 +102,7 @@ class ToDoClass {
             addWarning.classList.remove('border-4');
             this.tasks.push(newTask);
             this.loadTasks();
+            this.addDate();
         }
     }
 
@@ -121,35 +111,50 @@ class ToDoClass {
     //}
 
     //edit task item
+    editTask(event) {
 
+        let taskInput = event.target;
 
+        if (taskInput.disabled == true) {
+            taskInput.disabled = !taskInput.disabled;
 
-    editTask() {
-       //this.tasks[tasknum];
-      
-        let taskInput = document.querySelector('.todo-style');
-        let name = taskInput.value;       
-
-        if (taskInput.disabled == true)
-         { 
-             taskInput.disabled = !taskInput.disabled;
-             
         }
-
-        else {  taskInput.disabled = !taskInput.disabled;
-            let indexof = this.tasks.indexOf(name);
-            this.tasks[indexof] = taskInput.value;           
-        }
-
-        taskInput.classList.add('border');
-        taskInput.classList.add('border-4');
 
         taskInput.addEventListener('keyup', event => {
             if (event.key === 'Enter') {
-                this.loadTasks();}    
-            })                 
-    
-}
+
+                let newvalue = taskInput.value;
+                taskInput.innerHTML = newvalue;
+                taskInput.disabled = true;
+                // this.tasks.task = newvalue;
+                // this.addToLocalStorageArray("TASKS", newvalue);
+                saveNewEdit('TASKS', "tasks:", newvalue);
+            }
+        });
+    }
+
+    saveNewEdit(name, key, value) {
+        let existing = localStorage.getItem(name);
+        existing = existing ? JSON.parse(existing) : {};
+        existing[key] = value;
+        window.localStorage.setItem(name, JSON.stringify(existing));
+    }
+
+    addToLocalStorageArray(name, value) {
+
+        // Get the existing data
+        var existing = localStorage.getItem(name);
+
+        // If no existing data, create an array
+        // Otherwise, convert the localStorage string to an array
+        existing = existing ? existing.split(',') : [];
+
+        // Add new data to localStorage Array
+        existing.push(value);
+
+        // Save back to localStorage
+        localStorage.setItem(name, existing.toString());
+    };
 
     //sort alphabetically
     sortAlphabetically() {
@@ -161,7 +166,6 @@ class ToDoClass {
                 if (a.value < b.value) { return -1 }
                 return 0;
             })
-
     }
 
 }

@@ -91,6 +91,13 @@ i {
     
 }
 
+.date-display {
+    width: 100px;
+    background-color: floralwhite;
+    border: none;  
+    color:rgb(42, 43, 43); 
+    font-family: 'Lato', sans-serif;
+}
 .button-plus {
     background-color: #218380;
     border-radius: 50%;
