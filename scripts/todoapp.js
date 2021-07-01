@@ -49,10 +49,18 @@ class ToDoClass {
         
             </div>
     
-            <div class="col-9 input-container" onClick="toDo.editTask(event)">
+            <div class="col-8 input-container" onClick="toDo.editTask(event, ${undefined})">
               <input type="text" data-id="${id}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task}" disabled>
                 
             </div>
+
+              
+            <div class="col-2 ps-0">
+                <button class="button-style-list" onClick="toDo.editTask(event, ${index})">
+                edit
+                </button>
+            </div>
+
            
     
             <div class="col-2 ps-0">
@@ -114,9 +122,30 @@ class ToDoClass {
     }
 
     //edit task item
-    editTask(event) {
+    editTask(event, index) {
 
         let taskInput = event.target;
+
+        let _data; 
+
+        // Copy the current to do tasks into the private _data array
+        if (index !== undefined) {
+
+            _data = this.tasks; 
+
+            _data[index] = taskInput.innerHTML; 
+    
+            // Step 3 Write the contents of _data to loccal storage 
+
+            localStorage.setItem('TASKS', JSON.stringify(_data));
+
+    
+            // Force load tasks 
+    
+            // loadTasks 
+
+        }
+        
 
         if (taskInput.disabled == true) {
             taskInput.disabled = !taskInput.disabled;
@@ -139,8 +168,10 @@ class ToDoClass {
                      date: date
                  }
 
-               this.tasks.push(editedTask);
+            //    this.tasks.push(editedTask);
                localStorage.setItem('TASKS', JSON.stringify(this.tasks));
+
+               //load tasks call 
               
 
 
