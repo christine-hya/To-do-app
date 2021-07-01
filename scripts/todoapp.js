@@ -2,19 +2,22 @@
 
 class ToDoClass {
     constructor() {
-        this.tasks = JSON.parse(localStorage.getItem('TASKS'));
-        if (!this.tasks) {
-            this.tasks = [
-                { id: 0, task: task, isComplete: false, date: date },
+        let data = localStorage.getItem('TASKS');
+        this.tasks = []
 
-            ], id = 0;
-            ;
+            if (!data) {
+                const p = document.createElement('p')
+                p.textContent = 'Nothing to do! Add a task?'
+                document.getElementById('list').append(p);
 
-        }
-
-        this.loadTasks();
-        this.addEventListeners();
+            }
+        
+               else {
+                this.tasks = JSON.parse(localStorage.getItem('TASKS'));
+                this.loadTasks();    
     }
+               this.addEventListeners();
+}
     //constructor end
 
 
@@ -47,7 +50,7 @@ class ToDoClass {
             </div>
     
             <div class="col-9 input-container" onClick="toDo.editTask(event)">
-              <input type="text" data-id="${id}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task} ${date.date}" disabled>
+              <input type="text" data-id="${id}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task}" disabled>
                 
             </div>
            
@@ -85,7 +88,6 @@ class ToDoClass {
         let dueDate = document.getElementById("due-date").value;
         let dateString = JSON.stringify(dueDate);
         let newTask = {
-            id: this.id++,
             task,
             isComplete: false,
             date: dateString
@@ -102,13 +104,14 @@ class ToDoClass {
             addWarning.classList.remove('border-4');
             this.tasks.push(newTask);
             this.loadTasks();
-            this.addDate();
+           
         }
     }
 
-    //clearTasks() {
-    //localStorage.clear();
-    //}
+    clearTasks() {
+       localStorage.clear();
+       location. reload();
+    }
 
     //edit task item
     editTask(event) {
@@ -123,49 +126,38 @@ class ToDoClass {
         taskInput.addEventListener('keyup', event => {
             if (event.key === 'Enter') {
 
-                let newvalue = taskInput.value;
-                taskInput.innerHTML = newvalue;
+                let newValue = event.target.value;
+                taskInput.innerHTML = newValue;
                 taskInput.disabled = true;
                 // this.tasks.task = newvalue;
                 // this.addToLocalStorageArray("TASKS", newvalue);
-                saveNewEdit('TASKS', "tasks:", newvalue);
+
+                let editedTask = {
+                    // id: this.id++,
+                     task: `${newValue}`,
+                     isComplete: false,
+                     date: date
+                 }
+
+               this.tasks.push(editedTask);
+               localStorage.setItem('TASKS', JSON.stringify(this.tasks));
+              
+
+
+               //JSON.stringify(localStorage.setItem("TASKS", `${newvaluestring}`));
+             
             }
         });
     }
 
-    saveNewEdit(name, key, value) {
-        let existing = localStorage.getItem(name);
-        existing = existing ? JSON.parse(existing) : {};
-        existing[key] = value;
-        window.localStorage.setItem(name, JSON.stringify(existing));
-    }
 
-    addToLocalStorageArray(name, value) {
-
-        // Get the existing data
-        var existing = localStorage.getItem(name);
-
-        // If no existing data, create an array
-        // Otherwise, convert the localStorage string to an array
-        existing = existing ? existing.split(',') : [];
-
-        // Add new data to localStorage Array
-        existing.push(value);
-
-        // Save back to localStorage
-        localStorage.setItem(name, existing.toString());
-    };
 
     //sort alphabetically
     sortAlphabetically() {
-        let sortedTodos = this.tasks.map(el => this.tasks[el.index]);
-        this.loadTasks(sortedTodos);
-        return this.tasks
-            .sort((a, b) => {
-                if (a.value > b.value) { return 1; }
-                if (a.value < b.value) { return -1 }
-                return 0;
-            })
+        
+        this.tasks.sort((a, b) => a.task.localeCompare(b.task))
+        console.log(this.tasks);
+        this.loadTasks();
     }
 
 }
@@ -182,4 +174,9 @@ const dateElement = document.getElementById("date");
 const options = { weekday: "long", month: "short", day: "numeric" };
 const today = new Date();
 dateElement.innerHTML = today.toLocaleDateString("en-GB", options);
+
+//function addDate() {
+   // let dueDate = document.getElementById("due-date").value;
+    
+//}
 
