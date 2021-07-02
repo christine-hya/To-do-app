@@ -1,5 +1,3 @@
-
-
 class ToDoClass {
     constructor() {
         let data = localStorage.getItem('TASKS');
@@ -170,4 +168,3 @@ dateElement.innerHTML = today.toLocaleDateString("en-GB", options);
 //function addDate() {
    // let dueDate = document.getElementById("due-date").value;
 //}
-
