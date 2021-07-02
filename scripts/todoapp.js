@@ -5,19 +5,19 @@ class ToDoClass {
         let data = localStorage.getItem('TASKS');
         this.tasks = []
 
-            if (!data) {
-                const p = document.createElement('p')
-                p.textContent = 'Nothing to do! Add a task?'
-                document.getElementById('list').append(p);
+        if (!data) {
+            const p = document.createElement('p')
+            p.textContent = 'Nothing to do! Add a task?'
+            document.getElementById('list').append(p);
 
-            }
-        
-               else {
-                this.tasks = JSON.parse(localStorage.getItem('TASKS'));
-                this.loadTasks();    
+        }
+
+        else {
+            this.tasks = JSON.parse(localStorage.getItem('TASKS'));
+            this.loadTasks();
+        }
+        this.addEventListeners();
     }
-               this.addEventListeners();
-}
     //constructor end
 
 
@@ -104,13 +104,13 @@ class ToDoClass {
             addWarning.classList.remove('border-4');
             this.tasks.push(newTask);
             this.loadTasks();
-           
+
         }
     }
 
     clearTasks() {
-       localStorage.clear();
-       location. reload();
+        localStorage.clear();
+        location.reload();
     }
 
     //edit task item
@@ -134,18 +134,18 @@ class ToDoClass {
 
                 let editedTask = {
                     // id: this.id++,
-                     task: `${newValue}`,
-                     isComplete: false,
-                     date: date
-                 }
+                    task: `${newValue}`,
+                    isComplete: false,
+                    date: date
+                }
 
-               this.tasks.push(editedTask);
-               localStorage.setItem('TASKS', JSON.stringify(this.tasks));
-              
+                this.tasks.push(editedTask);
+                localStorage.setItem('TASKS', JSON.stringify(this.tasks));
 
 
-               //JSON.stringify(localStorage.setItem("TASKS", `${newvaluestring}`));
-             
+
+                //JSON.stringify(localStorage.setItem("TASKS", `${newvaluestring}`));
+
             }
         });
     }
@@ -154,7 +154,7 @@ class ToDoClass {
 
     //sort alphabetically
     sortAlphabetically() {
-        
+
         this.tasks.sort((a, b) => a.task.localeCompare(b.task))
         console.log(this.tasks);
         this.loadTasks();
@@ -177,6 +177,6 @@ dateElement.innerHTML = today.toLocaleDateString("en-GB", options);
 
 //function addDate() {
    // let dueDate = document.getElementById("due-date").value;
-    
+
 //}
 
