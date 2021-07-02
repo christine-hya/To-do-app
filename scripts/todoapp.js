@@ -49,8 +49,8 @@ class ToDoClass {
         
             </div>
     
-            <div class="col-9 input-container" onClick="toDo.editTask(event)">
-              <input type="text" data-id="${id}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task}" disabled>
+            <div class="col-9 input-container" onClick="toDo.editTask(event, ${index})">
+              <input type="text" data-id="${index}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task}" disabled>
                 
             </div>
            
@@ -88,7 +88,7 @@ class ToDoClass {
         let dueDate = document.getElementById("due-date").value;
         let dateString = JSON.stringify(dueDate);
         let newTask = {
-            task,
+            task: task,
             isComplete: false,
             date: dateString
         };
@@ -114,12 +114,14 @@ class ToDoClass {
     }
 
     //edit task item
-    editTask(event) {
+    editTask(event, index) {
 
-        let taskInput = event.target;
+        let taskInput = event.target; //input container
+        
+        
 
         if (taskInput.disabled == true) {
-            taskInput.disabled = !taskInput.disabled;
+            taskInput.disabled = !taskInput.disabled;           
 
         }
 
@@ -131,23 +133,26 @@ class ToDoClass {
                 taskInput.disabled = true;
                 // this.tasks.task = newvalue;
                 // this.addToLocalStorageArray("TASKS", newvalue);
+                //let _data = this.tasks; 
 
-                let editedTask = {
-                    // id: this.id++,
-                    task: `${newValue}`,
-                    isComplete: false,
-                    date: date
+                this.tasks[index].task = newValue;
+
+               
+                console.log(this.tasks);
+                localStorage.setItem('TASKS', JSON.stringify(this.tasks));
+                //location.reload();
+                this.loadTasks();
+
+                // Step 3 Write the contents of _data to loccal storage 
+    
+                
+
                 }
 
-                this.tasks.push(editedTask);
-                localStorage.setItem('TASKS', JSON.stringify(this.tasks));
-
-
-
+               
                 //JSON.stringify(localStorage.setItem("TASKS", `${newvaluestring}`));
 
-            }
-        });
+            });
     }
 
 
