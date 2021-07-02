@@ -117,15 +117,14 @@ class ToDoClass {
     editTask(event, index) {
 
         let taskInput = event.target; //input container
-        
-        
 
         if (taskInput.disabled == true) {
-            taskInput.disabled = !taskInput.disabled;           
+            taskInput.disabled = !taskInput.disabled;
 
         }
 
         taskInput.addEventListener('keyup', event => {
+            
             if (event.key === 'Enter') {
 
                 let newValue = event.target.value;
@@ -137,25 +136,13 @@ class ToDoClass {
 
                 this.tasks[index].task = newValue;
 
-               
                 console.log(this.tasks);
                 localStorage.setItem('TASKS', JSON.stringify(this.tasks));
-                //location.reload();
                 this.loadTasks();
 
-                // Step 3 Write the contents of _data to loccal storage 
-    
-                
-
-                }
-
-               
-                //JSON.stringify(localStorage.setItem("TASKS", `${newvaluestring}`));
-
-            });
+            }
+        });
     }
-
-
 
     //sort alphabetically
     sortAlphabetically() {
@@ -164,10 +151,10 @@ class ToDoClass {
         console.log(this.tasks);
         this.loadTasks();
     }
-
 }
 //class end
 
+//instantiation
 let toDo;
 window.addEventListener("load", function () {
     toDo = new ToDoClass();
@@ -182,6 +169,5 @@ dateElement.innerHTML = today.toLocaleDateString("en-GB", options);
 
 //function addDate() {
    // let dueDate = document.getElementById("due-date").value;
-
 //}
 
