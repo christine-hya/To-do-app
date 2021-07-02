@@ -1,3 +1,8 @@
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
 body {
     text-align: center;
     margin: auto;
@@ -50,6 +55,7 @@ body {
     padding: 7%;
     box-sizing: border-box;
     border-radius: 15px;
+    align-items: center;  
 }
 
 ul {
@@ -63,7 +69,10 @@ i {
        color: rgb(42, 43, 43);
        font: bold;       
     }
-
+.todo-style {
+    border: none;
+    background-color: floralwhite;
+}
 .complete {
     text-decoration: line-through;
 }
@@ -82,6 +91,13 @@ i {
     
 }
 
+.date-display {
+    width: 100px;
+    background-color: floralwhite;
+    border: none;  
+    color:rgb(42, 43, 43); 
+    font-family: 'Lato', sans-serif;
+}
 .button-plus {
     background-color: #218380;
     border-radius: 50%;
