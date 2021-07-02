@@ -128,9 +128,6 @@ class ToDoClass {
                 let newValue = event.target.value;
                 taskInput.innerHTML = newValue;
                 taskInput.disabled = true;
-                // this.tasks.task = newvalue;
-                // this.addToLocalStorageArray("TASKS", newvalue);
-                //let _data = this.tasks; 
 
                 this.tasks[index].task = newValue;
 
@@ -168,4 +165,3 @@ dateElement.innerHTML = today.toLocaleDateString("en-GB", options);
 //function addDate() {
    // let dueDate = document.getElementById("due-date").value;
 //}
-
