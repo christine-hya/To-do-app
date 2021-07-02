@@ -1,23 +1,21 @@
-
-
 class ToDoClass {
     constructor() {
         let data = localStorage.getItem('TASKS');
         this.tasks = []
 
-            if (!data) {
-                const p = document.createElement('p')
-                p.textContent = 'Nothing to do! Add a task?'
-                document.getElementById('list').append(p);
+        if (!data) {
+            const p = document.createElement('p')
+            p.textContent = 'Nothing to do! Add a task?'
+            document.getElementById('list').append(p);
 
-            }
-        
-               else {
-                this.tasks = JSON.parse(localStorage.getItem('TASKS'));
-                this.loadTasks();    
+        }
+
+        else {
+            this.tasks = JSON.parse(localStorage.getItem('TASKS'));
+            this.loadTasks();
+        }
+        this.addEventListeners();
     }
-               this.addEventListeners();
-}
     //constructor end
 
 
@@ -49,18 +47,10 @@ class ToDoClass {
         
             </div>
     
-            <div class="col-8 input-container" onClick="toDo.editTask(event, ${undefined})">
-              <input type="text" data-id="${id}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task}" disabled>
+            <div class="col-9 input-container" onClick="toDo.editTask(event, ${index})">
+              <input type="text" data-id="${index}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task}" disabled>
                 
             </div>
-
-              
-            <div class="col-2 ps-0">
-                <button class="button-style-list" onClick="toDo.editTask(event, ${index})">
-                edit
-                </button>
-            </div>
-
            
     
             <div class="col-2 ps-0">
@@ -96,7 +86,7 @@ class ToDoClass {
         let dueDate = document.getElementById("due-date").value;
         let dateString = JSON.stringify(dueDate);
         let newTask = {
-            task,
+            task: task,
             isComplete: false,
             date: dateString
         };
@@ -112,40 +102,19 @@ class ToDoClass {
             addWarning.classList.remove('border-4');
             this.tasks.push(newTask);
             this.loadTasks();
-           
+
         }
     }
 
     clearTasks() {
-       localStorage.clear();
-       location. reload();
+        localStorage.clear();
+        location.reload();
     }
 
     //edit task item
     editTask(event, index) {
 
-        let taskInput = event.target;
-
-        let _data; 
-
-        // Copy the current to do tasks into the private _data array
-        if (index !== undefined) {
-
-            _data = this.tasks; 
-
-            _data[index] = taskInput.innerHTML; 
-    
-            // Step 3 Write the contents of _data to loccal storage 
-
-            localStorage.setItem('TASKS', JSON.stringify(_data));
-
-    
-            // Force load tasks 
-    
-            // loadTasks 
-
-        }
-        
+        let taskInput = event.target; //input container
 
         if (taskInput.disabled == true) {
             taskInput.disabled = !taskInput.disabled;
@@ -153,6 +122,7 @@ class ToDoClass {
         }
 
         taskInput.addEventListener('keyup', event => {
+            
             if (event.key === 'Enter') {
 
                 let newValue = event.target.value;
@@ -160,40 +130,29 @@ class ToDoClass {
                 taskInput.disabled = true;
                 // this.tasks.task = newvalue;
                 // this.addToLocalStorageArray("TASKS", newvalue);
+                //let _data = this.tasks; 
 
-                let editedTask = {
-                    // id: this.id++,
-                     task: `${newValue}`,
-                     isComplete: false,
-                     date: date
-                 }
+                this.tasks[index].task = newValue;
 
-            //    this.tasks.push(editedTask);
-               localStorage.setItem('TASKS', JSON.stringify(this.tasks));
+                console.log(this.tasks);
+                localStorage.setItem('TASKS', JSON.stringify(this.tasks));
+                this.loadTasks();
 
-               //load tasks call 
-              
-
-
-               //JSON.stringify(localStorage.setItem("TASKS", `${newvaluestring}`));
-             
             }
         });
     }
 
-
-
     //sort alphabetically
     sortAlphabetically() {
-        
+
         this.tasks.sort((a, b) => a.task.localeCompare(b.task))
         console.log(this.tasks);
         this.loadTasks();
     }
-
 }
 //class end
 
+//instantiation
 let toDo;
 window.addEventListener("load", function () {
     toDo = new ToDoClass();
@@ -208,6 +167,5 @@ dateElement.innerHTML = today.toLocaleDateString("en-GB", options);
 
 //function addDate() {
    // let dueDate = document.getElementById("due-date").value;
-    
 //}
 
