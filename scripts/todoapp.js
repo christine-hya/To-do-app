@@ -83,12 +83,14 @@ class ToDoClass {
     }
 
     addTask(task) {
-        let dueDate = document.getElementById("due-date").value;
-        let dateString = JSON.stringify(dueDate);
+        //let dueDate = document.getElementById("due-date").value;
+        let dateObject = Date();
+        JSON.stringify(dateObject)
+        
         let newTask = {
             task: task,
             isComplete: false,
-            date: dateString
+            date: dateObject
         };
 
         let addWarning = document.getElementById('addTask');
