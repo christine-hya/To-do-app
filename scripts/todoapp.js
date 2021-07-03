@@ -31,13 +31,13 @@ class ToDoClass {
 
     loadTasks() {
 
-        let tasksHtml = this.tasks.reduce((html, task, index, date) => html +=
-            this.generateTaskHtml(task, index, date), '');
+        let tasksHtml = this.tasks.reduce((html, task, index) => html +=
+            this.generateTaskHtml(task, index), '');
         document.getElementById('list').innerHTML = tasksHtml;
         localStorage.setItem('TASKS', JSON.stringify(this.tasks));
     }
 
-    generateTaskHtml(task, index, id) {
+    generateTaskHtml(task, index) {
         return ` <li>
         <div class="row py-1 px-2 mx-auto">
     
@@ -47,9 +47,15 @@ class ToDoClass {
         
             </div>
     
-            <div class="col-9 input-container" onClick="toDo.editTask(event, ${index})">
-              <input type="text" data-id="${index}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task}" disabled>
-                
+            <div class="col-8 input-container" onClick="toDo.editTask(event, ${index})">
+           <input type="text" data-id="${index}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task}" disabled>
+           <input type="date" data-id="${index}" name="due-date" class="date-pick form-control" disabled> 
+           <button class="hide-date-button" onClick="toDo.addDueDate(event, ${index})">add date</button>
+           
+              </div>
+              
+              <div class="col-1" >            
+              
             </div>
            
     
@@ -83,14 +89,11 @@ class ToDoClass {
     }
 
     addTask(task) {
-        //let dueDate = document.getElementById("due-date").value;
-        let dateObject = Date();
-        JSON.stringify(dateObject)
-        
+        //let duedate = document.getElementById("due-date").innerHTML; 
+        //let newDueDate = JSON.stringify(new Date (duedate));
         let newTask = {
             task: task,
-            isComplete: false,
-            date: dateObject
+            isComplete: false        
         };
 
         let addWarning = document.getElementById('addTask');
@@ -103,7 +106,7 @@ class ToDoClass {
             addWarning.classList.remove('border-danger');
             addWarning.classList.remove('border-4');
             this.tasks.push(newTask);
-            this.loadTasks();
+            this.loadTasks();                   
 
         }
     }
@@ -112,6 +115,64 @@ class ToDoClass {
         localStorage.clear();
         location.reload();
     }
+
+   //select duedate
+   addDueDate(event) {
+    let dateButton = event.target;
+    let datePicker = dateButton.previousElementSibling;
+    console.log(datePicker);
+    datePicker.style.display = "inline-block";
+    dateButton.style.display = "none";
+
+    let addInput = datePicker.previousElementSibling;
+    console.log(addInput);
+    const previousValue = addInput.value;
+    
+    // let parentN = dateInput.parentNode;
+    // let closestP = dateInput.previousSibling;
+    // console.log(parentN)
+    // console.log(closestP)
+
+    if (datePicker.disabled == true) {
+        datePicker.disabled = !datePicker.disabled;
+        console.log(previousValue);
+    }
+
+    datePicker.addEventListener('keyup', event => {
+        if (event.key === 'Enter') {
+            //let newDueDate = JSON.stringify(new Date (event.target.value)); //object for array
+            console.log(previousValue);
+            console.log(typeof previousValue);
+
+           // let dateString = datePicker.value; //string value
+            console.log(dateString);
+            console.log(typeof dateString);
+
+            //convert date
+
+            let dateAndTask = previousValue.concat(dateString);
+            console.log(dateAndTask);
+            console.log(typeof dateAndTask);
+
+            //let newaddInput = datePicker.previousElementSibling;
+            
+            //newaddInput.innerHTML += previousValue + "Duedate:" + "<br>"  + dateString;
+                               
+            datePicker.style.display = "none";
+            //let e = document.createElement("span");
+           // e.innerHTML = dateString;
+
+            
+                            
+            //add date object to array
+            //this.tasks[index].task = dateAndTask;
+            console.log(this.tasks);
+            //localStorage.setItem('TASKS', JSON.stringify(this.tasks));
+           // this.loadTasks();
+        }
+
+    })
+}
 
     //edit task item
     editTask(event, index) {
@@ -164,6 +225,21 @@ const options = { weekday: "long", month: "short", day: "numeric" };
 const today = new Date();
 dateElement.innerHTML = today.toLocaleDateString("en-GB", options);
 
-//function addDate() {
-   // let dueDate = document.getElementById("due-date").value;
-//}
+// function addDate() {
+//    let dueDate = document.getElementById("due-date").value;
+//    dateString = JSON.stringify(dueDate);
+//    document.querySelector(".todo-style").innerHTML = "<br>" + dateString;
+
+   
+// }
+
+// document.getElementById("due-date").addEventListener('keyup', event => {
+            
+//     if (event.key === 'Enter'){
+//         addDate();
+//         toDo.addTaskClick();
+//     }
+// });
+ //let dueDate = document.getElementById("due-date").value;
+ //let dateObject = Date();
+ //JSON.stringify(dateObject)

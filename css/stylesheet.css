@@ -87,9 +87,21 @@ i {
 
 .date-style{
     width: 150px;
-    color: grey;
-    
+    color: grey;    
 }
+
+.date-pick {
+    width: 100px;
+    border: none;
+    display: none;
+}
+.hide-date-button {
+    display: inline-block;
+    border: none;
+    background-color: floralwhite;
+}
+
+
 
 .date-display {
     width: 100px;
