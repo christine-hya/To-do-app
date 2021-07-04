@@ -28,9 +28,7 @@ class ToDoClass {
         });
     };
 
-
     loadTasks() {
-
         let tasksHtml = this.tasks.reduce((html, task, index) => html +=
             this.generateTaskHtml(task, index), '');
         document.getElementById('list').innerHTML = tasksHtml;
@@ -47,14 +45,15 @@ class ToDoClass {
         
             </div>
     
-            <div class="col-8 input-container" onClick="toDo.editTask(event, ${index})">
-           <input type="text" data-id="${index}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task}" disabled>
-           <input type="date" data-id="${index}" name="due-date" class="date-pick form-control" disabled> 
-           <button class="hide-date-button" onClick="toDo.addDueDate(event, ${index})">add date</button>
+            <div class="col-6 input-container" onClick="toDo.editTask(event, ${index})">
+           <input type="text" data-id="${index}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style" input value="${task.task}" disabled>                  
            
               </div>
               
-              <div class="col-1" >            
+              <div class="col-2 button-container">    
+               
+              <input type="date" data-id="${index}" name="due-date" class="date-pick form-control" input value="" disabled> 
+              <button class="date-button button-style-list ${task.hasDate ? 'hide' : ''}" onClick="toDo.addDueDate(event, ${index})">&#xf073</button>     
               
             </div>
            
@@ -89,11 +88,11 @@ class ToDoClass {
     }
 
     addTask(task) {
-        //let duedate = document.getElementById("due-date").innerHTML; 
-        //let newDueDate = JSON.stringify(new Date (duedate));
         let newTask = {
             task: task,
-            isComplete: false        
+            isComplete: false,
+            hasDate: false,
+            date: date,
         };
 
         let addWarning = document.getElementById('addTask');
@@ -106,7 +105,7 @@ class ToDoClass {
             addWarning.classList.remove('border-danger');
             addWarning.classList.remove('border-4');
             this.tasks.push(newTask);
-            this.loadTasks();                   
+            this.loadTasks();
 
         }
     }
@@ -116,63 +115,49 @@ class ToDoClass {
         location.reload();
     }
 
-   //select duedate
-   addDueDate(event) {
-    let dateButton = event.target;
-    let datePicker = dateButton.previousElementSibling;
-    console.log(datePicker);
-    datePicker.style.display = "inline-block";
-    dateButton.style.display = "none";
 
-    let addInput = datePicker.previousElementSibling;
-    console.log(addInput);
-    const previousValue = addInput.value;
-    
-    // let parentN = dateInput.parentNode;
-    // let closestP = dateInput.previousSibling;
-    // console.log(parentN)
-    // console.log(closestP)
+    //select duedate
+    addDueDate(event, index) {
+        let dateButton = event.target;
+        let datePicker = dateButton.previousElementSibling;
 
-    if (datePicker.disabled == true) {
-        datePicker.disabled = !datePicker.disabled;
-        console.log(previousValue);
-    }
+        datePicker.style.display = "inline-block";
+        dateButton.style.display = "none";
 
-    datePicker.addEventListener('keyup', event => {
-        if (event.key === 'Enter') {
-            //let newDueDate = JSON.stringify(new Date (event.target.value)); //object for array
-            console.log(previousValue);
-            console.log(typeof previousValue);
-
-           // let dateString = datePicker.value; //string value
-            console.log(dateString);
-            console.log(typeof dateString);
-
-            //convert date
-
-            let dateAndTask = previousValue.concat(dateString);
-            console.log(dateAndTask);
-            console.log(typeof dateAndTask);
-
-            //let newaddInput = datePicker.previousElementSibling;
-            
-            //newaddInput.innerHTML += previousValue + "Duedate:" + "<br>"  + dateString;
-                               
-            datePicker.style.display = "none";
-            //let e = document.createElement("span");
-           // e.innerHTML = dateString;
-
-            
-                            
-            //add date object to array
-            //this.tasks[index].task = dateAndTask;
-            console.log(this.tasks);
-            //localStorage.setItem('TASKS', JSON.stringify(this.tasks));
-           // this.loadTasks();
+        if (datePicker.disabled == true) {
+            datePicker.disabled = !datePicker.disabled;
         }
 
-    })
-}
+        datePicker.addEventListener('keyup', event => {
+            if (event.key === 'Enter') {
+
+                let dateString = datePicker.value;
+                let dateObject = new Date(dateString);
+
+                //convert date
+                const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(dateObject)
+                const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(dateObject)
+                const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(dateObject)
+
+                console.log(`${da} ${mo} ${ye}`);
+                let dueDate = `${da} ${mo} ${ye}`;
+
+                datePicker.style.display = "none";
+
+                //add date to array                   
+                let taskValue = this.tasks[index].task;
+                this.tasks[index].task = taskValue + "  " + " " + "&#xf073" + " " + dueDate;
+                this.tasks[index].date = dateString;
+                this.tasks[index].hasDate = !this.tasks[index].hasDate;
+                console.log(this.tasks);
+                localStorage.setItem('TASKS', JSON.stringify(this.tasks));
+                this.loadTasks();
+                dateButton.style.display = "none";
+            }
+
+        })
+
+    }
 
     //edit task item
     editTask(event, index) {
@@ -185,7 +170,7 @@ class ToDoClass {
         }
 
         taskInput.addEventListener('keyup', event => {
-            
+
             if (event.key === 'Enter') {
 
                 let newValue = event.target.value;
@@ -205,7 +190,8 @@ class ToDoClass {
     //sort alphabetically
     sortAlphabetically() {
 
-        this.tasks.sort((a, b) => a.task.localeCompare(b.task))
+        this.tasks.sort((a, b) => a.task.localeCompare(b.task));
+        if (this.tasks.hasDate == true) { this.tasks.sort((a, b) => a.date.localeCompare(b.date)) };
         console.log(this.tasks);
         this.loadTasks();
     }
@@ -230,11 +216,11 @@ dateElement.innerHTML = today.toLocaleDateString("en-GB", options);
 //    dateString = JSON.stringify(dueDate);
 //    document.querySelector(".todo-style").innerHTML = "<br>" + dateString;
 
-   
+
 // }
 
 // document.getElementById("due-date").addEventListener('keyup', event => {
-            
+
 //     if (event.key === 'Enter'){
 //         addDate();
 //         toDo.addTaskClick();

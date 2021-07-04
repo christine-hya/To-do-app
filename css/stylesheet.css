@@ -6,6 +6,7 @@ html {
 body {
     text-align: center;
     margin: auto;
+    font-family: FontAwesome;
 }
 
 .header {
@@ -30,7 +31,7 @@ body {
     width: 450px;
     height: 510px;
     margin: 0 auto;
-    font-family: 'Lato', sans-serif;
+    /*'Lato', sans-serif; */
     text-align: center;   
     box-sizing: border-box;
     border: none;
@@ -72,13 +73,19 @@ i {
 .todo-style {
     border: none;
     background-color: floralwhite;
+    font-family: FontAwesome; 
+    font-weight: bold;
+    /* font-family: 'Lato', sans-serif; */
+
+    color: rgb(59, 59, 59);
+    
 }
 .complete {
     text-decoration: line-through;
 }
 
 .custom-checkbox {
-    filter: grayscale(100%)
+    filter: grayscale(100%);
 }
 
 .input-style{
@@ -94,14 +101,27 @@ i {
     width: 100px;
     border: none;
     display: none;
+    font-family: FontAwesome; 
+    font-weight: bold;
 }
-.hide-date-button {
+.date-button {
     display: inline-block;
     border: none;
     background-color: floralwhite;
+    color:  rgb(59, 59, 59);
+    font-family: FontAwesome; 
+    font-weight: bold;
+    /* font-size: small; */
 }
 
+.date-button:hover {
+     color:rgb(23, 24, 24);
+     font-weight: bolder;
+}
 
+.hide {
+    display: none;
+}
 
 .date-display {
     width: 100px;
