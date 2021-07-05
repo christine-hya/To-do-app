@@ -16,6 +16,3 @@ This project consists of HTML, CSS and JavaScript. I used some Bootstrap, mainly
 Tasks can be added to the list by hitting the plus sign or enter, a duedate can be added by hitting clicking on the calendar icon and selecting a date. On hitting enter, the date will be displayed next to the relevant task for easy reference. A task can be edited by clicking on the text and the edit will be saving after hitting enter.
 The checkbox can be selected for marking a task as complete, and the tasks can be sorted alphabetically by clicking on the sort button. All tasks are stored in local storage and will be available after the page reloads. If the user wishes to clear all tasks, the clear button will delete all tasks from local storage.
 
-# Author
-
-@christine-hya
