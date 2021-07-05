@@ -1,62 +1,79 @@
 html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
 
 body {
     text-align: center;
-    margin: auto;
+    margin: 0;
     font-family: FontAwesome;
+    color:rgb(42, 43, 43);
 }
 
 .header {
     position: relative;
-    width: 450px;
+    width: 500px;
+    height: 150px;
     color: white;
     background-color: #218380;
-    padding: 2%;
-    margin: 0 auto;
-    margin-top: 20px;
+    padding: 3%;
+    margin: auto;
+    margin-top: 10px;
     border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    box-sizing: border-box;
+    border-top-right-radius: 15px;    
 }
 
 .app-area {
-    background-color:floralwhite;
-    color:rgb(42, 43, 43);
     position: relative;  
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
-    width: 450px;
-    height: 510px;
+    width: 500px;
+    height: 400px;
     margin: 0 auto;
-    /*'Lato', sans-serif; */
+    margin-bottom: 30px;
+    background-color: rgb(245, 237, 237);  
     text-align: center;   
-    box-sizing: border-box;
-    border: none;
-    
+    border: none;   
 }
 
 .todo-list {
     margin: 0% auto;
     padding: 5%;
     padding-top: 5%;
-    display: block;
-    box-sizing: border-box;   
+    display: inline-block;
+}
+
+.todo-style {
+    border: none;
+    background-color: rgb(245, 237, 237);  
+    font-family: FontAwesome; 
+    font-weight: bold;
+    color: rgb(42, 43, 43);
+}
+
+.todo-style:hover {
+    background-color: #c5c3c4;
 }
 
 .add-to-do {
     position: absolute;
-    top: 60%;
-    left: 6%;
+    top: 65%;
+    width: 75%;
+    padding: 5%;
+    left: 13%;
     margin: 0 auto;   
     background-color: #8F2D56;
-    border-radius: 5px;
-    padding: 7%;
-    box-sizing: border-box;
+    border-radius: 5px;  
     border-radius: 15px;
-    align-items: center;  
+    align-items: center;
+    justify-content: center;
 }
 
 ul {
@@ -64,22 +81,13 @@ ul {
     margin: auto;
     padding: 0%;
     font: bolder;
-   }
+}
 
 i {
        color: rgb(42, 43, 43);
        font: bold;       
-    }
-.todo-style {
-    border: none;
-    background-color: floralwhite;
-    font-family: FontAwesome; 
-    font-weight: bold;
-    /* font-family: 'Lato', sans-serif; */
-
-    color: rgb(59, 59, 59);
-    
 }
+
 .complete {
     text-decoration: line-through;
 }
@@ -88,55 +96,35 @@ i {
     filter: grayscale(100%);
 }
 
-.input-style{
+.input-style {
     width: 220px;
-}
-
-.date-style{
-    width: 150px;
-    color: grey;    
-}
-
-.date-pick {
-    width: 100px;
-    border: none;
-    display: none;
-    font-family: FontAwesome; 
-    font-weight: bold;
-}
-.date-button {
-    display: inline-block;
-    border: none;
-    background-color: floralwhite;
-    color:  rgb(59, 59, 59);
-    font-family: FontAwesome; 
-    font-weight: bold;
-    /* font-size: small; */
-}
-
-.date-button:hover {
-     color:rgb(23, 24, 24);
-     font-weight: bolder;
 }
 
 .hide {
     display: none;
 }
 
-.date-display {
-    width: 100px;
-    background-color: floralwhite;
-    border: none;  
-    color:rgb(42, 43, 43); 
-    font-family: 'Lato', sans-serif;
+.date-picker {
+    width: 120px;
+    border: none;
+    display: none;
+    font-family: FontAwesome; 
+    font-size: smaller;
+    color: rgb(42, 43, 43);
+    float: right;
 }
+
 .button-plus {
     background-color: #218380;
     border-radius: 50%;
     border: none;
     width: 40px;
     height: 40px;
+    margin-left: 2%;
+}
 
+.button-plus:hover {
+    background-color: #FBB13C;   
 }
 
 .white-plus {
@@ -147,21 +135,21 @@ i {
     color: black;
 }
 
-.button-plus:hover {
-    background-color: #FBB13C;   
-}
-
-.button-style-list{
-    background-color: floralwhite;
+.button-style-list {
+    background-color: rgb(245, 237, 237);
+    color: rgb(42, 43, 43);
     border: none;
     border-radius: 50%;
+    font-family: FontAwesome; 
+    font-weight: bold;
+    display: inline-block;
 }
 
-.button-style-list:hover{
+.button-style-list:hover {
     background-color: #218380;
 }
 
-.button-abc {
+.button-sort-clear {
     background-color: #FBB13C;
     border: none;
     border-radius: 50%;
@@ -169,66 +157,94 @@ i {
     height: 40px;
 }
 
-.button-abc:hover {
+.button-sort-clear:hover {
     background-color: #8F2D56;
 }
 
 button:hover {
     transform: scale(1.4);
-  }
-
-.hide {
-    display: none;
-}
-
-.replace-with-edit {
-    display: block;
 }
 
 
-/* smart phones */
+@media screen and (max-width: 400px) {
+
+    body {
+        font-size: 12px;
+    }
+
+    .header {
+        padding: 50px;
+        margin: 20px;
+        height: 100px;
+        max-width: 100%;
+        width: 100vw;
+    }
+
+    .button-sort-clear {
+        padding: 10px;
+    }
+
+    .input-style {
+        width: 180px;
+        margin: 10px;
+    }
+} 
 
 @media screen and (max-width: 576px) {
 
     .header {
         width: 100vw;
-        height: 250px;
+        max-width: 100%;     
+        height: 180px;
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;
-        margin: 0%;
-        padding-top: 20%;
-        padding-bottom: 10%;
+        margin: auto 0;
+        padding: 50px;
+        padding-right: 30px;
     }
 
     .app-area {
-            width: 100vw;   
-            height: 419px;
-            background-color: white;
-         
+        width: 100vw;
+        max-width: 100%;
+        max-height: 100vw; 
+        margin: auto 0;
+    }
+
+    .todo-list {
+        max-width: 100%;
+        margin: auto 0;
+        display: inline-block;
     }
 
     .add-to-do {
+        width: 100vw;
+        max-width: 100%;
+        margin: 0 auto;        
         left: 0%;
-        top: 90%;
-      
+        top: 80%;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-top-right-radius: 0px; 
+        border-bottom-right-radius: 0px;   
+    }
+
+    .input-style {
+        margin: 10px;
     }
 }
-
 
 @media screen and (max-width: 1024px) {
 
     .header {
-        width: 700px;
+        max-width: 610px;
         padding-top: 5%;
         padding-bottom: 5%;
     }
 
     .app-area {
-            width: 700px;
-            height: 814px;
-        } 
-    .add-to-do {
-        left: 20%;
-    } 
+            max-width: 610px;
+            height: 500px;
+        }    
+}    
+    
    
-} 
