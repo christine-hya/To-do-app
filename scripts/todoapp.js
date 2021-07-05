@@ -7,13 +7,13 @@ class ToDoClass {
             const p = document.createElement('p')
             p.textContent = 'Nothing to do! Add a task?'
             document.getElementById('list').append(p);
-
         }
 
         else {
             this.tasks = JSON.parse(localStorage.getItem('TASKS'));
             this.loadTasks();
         }
+
         this.addEventListeners();
     }
 
@@ -42,16 +42,16 @@ class ToDoClass {
                 <input id="toggleTaskStatus" type="checkbox" onchange="toDo.toggleTaskStatus(${index})" name="completed" class="custom-checkbox" value="" ${task.isComplete ? 'checked' : ''}>       
             </div>
     
-            <div class="col-7 input-container" onClick="toDo.editTask(event, ${index})">
+            <div class="col-7 my-auto" onClick="toDo.editTask(event, ${index})">
                <input type="text" data-id="${index}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style form-control-sm float-start" input value="${task.task}" disabled>                            
             </div>
               
-              <div class="col-2">                   
+              <div class="col-2 my-auto">                   
                <input type="date" data-id="${index}" name="due-date" class="date-picker form-control-sm" disabled> 
-               <button class="date-button button-style-list float-end ${task.hasDate ? 'hide' : ''}" onClick="toDo.addDueDate(event, ${index})">&#xf073</button>                   
+               <button class="button-style-list ${task.hasDate ? 'hide' : ''}" onClick="toDo.addDueDate(event, ${index})">&#xf073</button>                   
             </div>
    
-            <div class="col-2 ps-0">
+            <div class="col-2 ps-0 my-auto">
               <button class="button-style-list" onClick="toDo.deleteTask(event, ${index})">
               <i id="deleteTask" data-id="${index}" class="far fa-trash-alt"></i>
               </button>
@@ -82,7 +82,7 @@ class ToDoClass {
             task: task,
             isComplete: false,
             hasDate: false,
-            date: date
+            date: date,
         }
 
         let addWarning = document.getElementById('addTask');
@@ -140,7 +140,6 @@ class ToDoClass {
                 
                 //true/false value to hide date button
                 this.tasks[index].hasDate = !this.tasks[index].hasDate;
-                console.log(this.tasks);
                 localStorage.setItem('TASKS', JSON.stringify(this.tasks));
                 this.loadTasks();
                 dateButton.style.display = 'none';
@@ -164,7 +163,6 @@ class ToDoClass {
                 taskInput.innerHTML = newValue;
                 taskInput.disabled = true;
                 this.tasks[index].task = newValue;
-                console.log(this.tasks);
                 localStorage.setItem('TASKS', JSON.stringify(this.tasks));
                 this.loadTasks();
             }
@@ -173,12 +171,12 @@ class ToDoClass {
 
 
     sortByDateandABC() {
-
-        this.tasks.sort((a, b) => a.task.localeCompare(b.task));
-        if (this.tasks.hasDate == true) { this.tasks.sort((a, b) => a.date.localeCompare(b.date)) };
-        console.log(this.tasks);
+        if (this.tasks.hasDate == true) { this.tasks.sort((a, b) => a.date.localeCompare(b.date)); }
+        else if (!this.tasks.hasDate){ 
+            this.tasks.sort((a, b) => a.task.localeCompare(b.task));
+         }   
         this.loadTasks();
-    }
+    }  
 }
 
 
@@ -186,7 +184,6 @@ class ToDoClass {
 let toDo;
 window.addEventListener("load", function () {
     toDo = new ToDoClass();
-    console.log(toDo.tasks);
 });
 
 //display today's date
