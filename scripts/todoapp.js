@@ -42,20 +42,21 @@ class ToDoClass {
                 <input id="toggleTaskStatus" type="checkbox" onchange="toDo.toggleTaskStatus(${index})" name="completed" class="custom-checkbox" value="" ${task.isComplete ? 'checked' : ''}>       
             </div>
     
-            <div class="col-7 my-auto" onClick="toDo.editTask(event, ${index})">
+            <div class="col-8" onClick="toDo.editTask(event, ${index})">
                <input type="text" data-id="${index}" class="${task.isComplete ? 'complete' : ''} mx-0 todo-style form-control-sm float-start" input value="${task.task}" disabled>                            
             </div>
               
-              <div class="col-2 my-auto">                   
+              <div class="col-1">                   
                <input type="date" data-id="${index}" name="due-date" class="date-picker form-control-sm" disabled> 
                <button class="button-style-list ${task.hasDate ? 'hide' : ''}" onClick="toDo.addDueDate(event, ${index})">&#xf073</button>                   
             </div>
    
-            <div class="col-2 ps-0 my-auto">
-              <button class="button-style-list" onClick="toDo.deleteTask(event, ${index})">
+            <div class="col-1">
+              <button class="button-style-list delete-button" onClick="toDo.deleteTask(event, ${index})">
               <i id="deleteTask" data-id="${index}" class="far fa-trash-alt"></i>
               </button>
             </div>
+            <div class="col-1"></div>
 
     </li> `
     }

@@ -17,24 +17,24 @@
     <!--header-->
     <div class="header container-fluid">
 
-        <div class="row pt-0 mt-0">
+        <div class="row px-2">
 
-            <div class="col-9">
+            <div class="col-sm-9 col-8">
             </div>
 
-            <div class="col-1 me-2">
-                <button class="button-sort-clear p-2 me-2 sm-2" onclick="toDo.clearTasks()">
+            <div class="col-sm-1 col-1 me-2">
+                <button class="button-sort-clear" onclick="toDo.clearTasks()">
                     <i class="fas fa-sync"></i>
                 </button>
             </div>
 
-            <div class="col-1 me-2">
-                <button class="button-sort-clear p-2 ms-2 sm-2" onclick="toDo.sortByDateandABC()">
+            <div class="col-sm-1 col-1 ms-2">
+                <button class="button-sort-clear" onclick="toDo.sortByDateandABC()">
                     <i class="fas fa-sort-alpha-down"></i>
                 </button>
             </div>
             
-            <div class="col-1 mx-2"></div>
+            <div class="col-sm-1 col-2"></div>
         </div>
 
         <div id="date"></div>
@@ -48,7 +48,7 @@
         <div class="todo-list mx-0">
             <ul id="list">
 
-                <!--to do list-->
+                <!--to-do list-->
 
             </ul>
         </div>
@@ -56,19 +56,21 @@
         <!--add-to-do section-->
         <div class="add-to-do mx-auto container-fluid">
            
-            <div class="row py-2 mx-auto">
+            <div class="row mx-auto">
 
                 <div class="col-1"></div>
 
-                <div class="col-9">
+                <div class="col-8">
                     <input type="text" placeholder="New task" id="addTask" class="input-style mx-auto form-control">
                 </div>
 
-                <div class="col-2">
+                <div class="col-2 my-auto">
                     <button class="button-plus p-2" onclick="toDo.addTaskClick()">
                         <i class="fas fa-plus white-plus"></i>
                     </button>
                 </div>
+
+                <div class="col-1"></div>
 
             </div>
 
